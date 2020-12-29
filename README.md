@@ -5,17 +5,22 @@ This repository has the artifacts necessary for deploying a pwn.college instance
 ## Setup
 
 ```bash
-docker build -t pwncollege_challenge containers/pwncollege_challenge
+#docker build -t pwncollege_challenge containers/pwncollege_challenge
+
+docker pull xiaoyanfujun/pwncollege_challenge:1.0
+docker tag xiaoyanfujun/pwncollege_challenge:1.0 pwncollege_challenge
 
 cp -r CTFd-pwn-college-plugin CTFd/CTFd/plugins
 
 docker-compose up -d
 
-docker run --detach --name nginx-proxy --publish 80:80 --publish 443:443 --volume /etc/nginx/certs --volume conf/nginx/vhost.d:/etc/nginx/vhost.d --volume /usr/share/nginx/html --volume /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+docker run --detach --name nginx-proxy --publish 80:80 --publish 443:443 --volume /etc/nginx/certs --volume `pwd`/conf/nginx/vhost.d:/etc/nginx/vhost.d --volume /usr/share/nginx/html --volume /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 
 docker run --detach --name nginx-proxy-letsencrypt --volumes-from nginx-proxy --volume /var/run/docker.sock:/var/run/docker.sock:ro --env "DEFAULT_EMAIL=example@example.com" jrcs/letsencrypt-nginx-proxy-companion
 
-docker network connect ctfd_default nginx-proxy
+docker network connect pwncollege_default nginx-proxy
+docker restart nginx-proxy
+
 ```
 It may be something other than ctfd_default, depending on instance.
 
