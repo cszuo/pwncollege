@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   ctfd:
+    container_name: pwncollege_CTFd
     build: CTFd
     user: root
     restart: always
@@ -14,11 +15,11 @@ services:
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
-      # - PWN_COLLEGE_INSTANCE=
-      # - HOST_DATA_PATH=
-      # - SECRET_KEY=
-      # - BINARY_NINJA_API_KEY=
-      # - VIRTUAL_HOST=
+      - PWN_COLLEGE_INSTANCE=pwncollege
+      - HOST_DATA_PATH=/opt/pwncollege/.data
+      - SECRET_KEY=-
+      - BINARY_NINJA_API_KEY=-
+      - VIRTUAL_HOST=ctf.seclab.engineering.osu.edu
       - VIRTUAL_PORT=8000
       # - LETSENCRYPT_HOST=
     volumes:
@@ -36,6 +37,7 @@ services:
         internal:
 
   db:
+    container_name: pwncollege_db
     image: mariadb:10.4.12
     restart: always
     environment:
@@ -51,6 +53,7 @@ services:
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
 
   cache:
+    container_name: pwncollege_cache
     image: redis:4
     restart: always
     volumes:
