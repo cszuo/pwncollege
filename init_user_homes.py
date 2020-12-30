@@ -26,7 +26,7 @@ def init(user_id):
         homes_nosuid = homes / "nosuid"
 
         if not homes.exists():
-            homes.mkdir(exist_ok=True)
+            homes.mkdir(exist_ok=True, parents=True)
 
         assert homes.exists(), "'/homes' does not exist"
 
