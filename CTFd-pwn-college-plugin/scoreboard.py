@@ -13,7 +13,10 @@ from CTFd.utils.decorators.visibility import check_score_visibility
 
 
 def email_group_asset(email):
-    if email.endswith("@asu.edu"):
+
+    if email == None:
+        group = "hacker.png"
+    elif email.endswith("@asu.edu"):
         group = "fork.png"
     elif email.endswith(".edu"):
         group = "student.png"
