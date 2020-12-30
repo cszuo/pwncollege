@@ -5,6 +5,10 @@ This repository has the artifacts necessary for deploying a pwn.college instance
 ## Setup
 
 ```bash
+
+git clone https://github.com/cszuo/pwncollege.git /opt/pwncollege/
+cd /opt/pwncollege/
+
 #docker build -t pwncollege_challenge containers/pwncollege_challenge
 
 docker pull xiaoyanfujun/pwncollege_challenge:1.0
