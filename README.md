@@ -10,9 +10,14 @@ git clone https://github.com/cszuo/pwncollege.git /opt/pwncollege/
 cd /opt/pwncollege/
 
 #docker build -t pwncollege_challenge containers/pwncollege_challenge
-
+# or
 docker pull xiaoyanfujun/pwncollege_challenge:1.0
 docker tag xiaoyanfujun/pwncollege_challenge:1.0 pwncollege_challenge
+
+#docker build -t pwncollege_ctfd CTFd
+# or
+docker pull xiaoyanfujun/pwncollege_ctfd:1.0
+docker tag xiaoyanfujun/pwncollege_ctfd:1.0 pwncollege_ctfd
 
 sudo chmod 666 /var/run/docker.sock
 sudo adduser pwncollege

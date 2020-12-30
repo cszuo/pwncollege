@@ -3,7 +3,7 @@ version: '3.3'
 services:
   ctfd:
     container_name: pwncollege_CTFd
-    build: CTFd
+    image: pwncollege_ctfd
     user: root
     restart: always
     environment:
