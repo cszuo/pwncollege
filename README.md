@@ -16,7 +16,7 @@ docker tag xiaoyanfujun/pwncollege_challenge:1.0 pwncollege_challenge
 
 sudo chmod 666 /var/run/docker.sock
 sudo adduser pwncollege
-sudo pip install docker
+sudo pip3 install docker
 
 cp -r CTFd-pwn-college-plugin CTFd/CTFd/plugins
 
