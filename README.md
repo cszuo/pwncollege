@@ -10,7 +10,19 @@ This repository has the artifacts necessary for deploying a pwn.college instance
 docker pull xiaoyanfujun/pwncollege_challenge:1.0
 docker tag xiaoyanfujun/pwncollege_challenge:1.0 pwncollege_challenge
 
+sudo chmod 666 /var/run/docker.sock
+sudo adduser pwncollege
+sudo pip install docker
+
 cp -r CTFd-pwn-college-plugin CTFd/CTFd/plugins
+
+./init_user_homes.py 500 # MAX_USER_ID
+```
+
+## Start
+
+```bash
+
 
 docker-compose up -d
 
@@ -19,21 +31,21 @@ docker run --detach --name nginx-proxy --publish 80:80 --publish 443:443 --volum
 docker run --detach --name nginx-proxy-letsencrypt --volumes-from nginx-proxy --volume /var/run/docker.sock:/var/run/docker.sock:ro --env "DEFAULT_EMAIL=example@example.com" jrcs/letsencrypt-nginx-proxy-companion
 
 docker network connect pwncollege_default nginx-proxy
+
 docker restart nginx-proxy
 
 ```
-It may be something other than ctfd_default, depending on instance.
+
+It may be something other than pwncollege_default, depending on instance.
 
 For container access (/etc/ssh/sshd_config):
 ```
-Match User ctf
-      AuthorizedKeysCommand /opt/pwn-college/auth.py ctfd_db_1 ctf
+Match User pwncollege
+      AuthorizedKeysCommand /opt/pwncollege/auth.py pwncollege_db pwncollege
       AuthorizedKeysCommandUser root
       X11Forwarding no
       AllowTcpForwarding no
 ```
-It may be something other than ctfd_db_1, depending on instance.
-It may be something other than ctf, depending on instance.
 
 Persistent mounts (in /opt/pwn-college/persistent):
 ```bash
